@@ -9,15 +9,16 @@
     />
 
 
-    <title data-translate="Stitch Design">Stitch Design</title>
+    <title>VayuDrone</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link rel="stylesheet" href="dark-mode.css" />
-<link rel="stylesheet" href="animations.css" />
+    <link rel="stylesheet" href="animations.css" />
+    <link rel="stylesheet" href="responsive.css" />
   </head>
-  <body>
+  <body class="fade-in">
     <script src="dark-mode.js"></script>
     <script src="location.js"></script>
     <script src="translation.js"></script>
@@ -25,7 +26,7 @@
       class="relative flex size-full min-h-screen flex-col bg-[#f9fbf9] justify-between group/design-root overflow-x-hidden"
       style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'
     >
-      <div>
+      <div class="main-content">
         <div class="flex items-center bg-[#f9fbf9] p-4 pb-2 justify-between">
           <div class="text-[#111811] flex size-12 shrink-0 items-center" data-icon="ArrowLeft" data-size="24px" data-weight="regular" onclick="window.location.href='crop-health-reports-list.html'">
             <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
@@ -73,24 +74,11 @@
           </div>
         </div>
       </div>
-      <div>
-        <div class="flex justify-stretch">
-          <div class="flex flex-1 gap-3 flex-wrap px-4 py-3 justify-between">
-            <button
-              class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#eaf1ea] text-[#111811] text-sm font-bold leading-normal tracking-[0.015em]"
-              onclick="alert('Downloading Report...')"
-            >
-              <span data-translate="Download Report" class="truncate">Download Report</span>
-            </button>
-            <button
-              class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#80d280] text-[#111811] text-sm font-bold leading-normal tracking-[0.015em]"
-              onclick="window.location.href='help-center.html'"
-            >
-              <span data-translate="Raise Issue" class="truncate">Raise Issue</span>
-            </button>
-          </div>
-        </div>
-        <div class="h-5 bg-[#f9fbf9]"></div>
+      <div class="bottom-nav">
+        <a href="home.html"><div class="icon">🏠</div><span data-translate="Home">Home</span></a>
+        <a href="my-bookings.html"><div class="icon">📋</div><span data-translate="My Bookings">My Bookings</span></a>
+        <a href="profile-overview.html" class="active"><div class="icon">👤</div><span data-translate="Profile">Profile</span></a>
+        <a href="help-center.html"><div class="icon">❓</div><span data-translate="Help">Help</span></a>
       </div>
     </div>
   </body>

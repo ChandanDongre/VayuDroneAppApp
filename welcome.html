@@ -1,69 +1,39 @@
-<html>
-  <head>
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
-    <link
-      rel="stylesheet"
-      as="style"
-      onload="this.rel='stylesheet'"
-      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Plus+Jakarta+Sans%3Awght%40400%3B500%3B700%3B800"
-    />
-
-
-    <title data-translate="Stitch Design">Stitch Design</title>
-    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
-
-
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link rel="stylesheet" href="dark-mode.css" />
-<link rel="stylesheet" href="animations.css" />
-  </head>
-  <body>
-    <script src="dark-mode.js"></script>
-    <script src="location.js"></script>
-    <script src="translation.js"></script>
-    <div
-      class="relative flex size-full min-h-screen flex-col bg-[#f9fbf9] justify-between group/design-root overflow-x-hidden"
-      style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'
-    >
-      <div>
-        <div class="flex items-center bg-[#f9fbf9] p-4 pb-2 justify-between">
-          <h2 data-translate="VayuDrone" class="text-[#111811] text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pl-12">VayuDrone</h2>
-          <div class="flex w-12 items-center justify-end">
-            <button
-              class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 bg-transparent text-[#111811] gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0"
-            >
-              <div class="text-[#111811]" data-icon="Question" data-size="24px" data-weight="regular">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                  <path
-                    d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"
-                  ></path>
-                </svg>
-              </div>
-            </button>
-          </div>
-        </div>
-        <h2 data-translate="Namaste! Welcome to VayuDrone" class="text-[#111811] tracking-light text-[28px] font-bold leading-tight px-4 text-center pb-3 pt-5">Namaste! Welcome to VayuDrone</h2>
-        <p data-translate="Helping farmers use drone power for better, smarter agriculture." class="text-[#111811] text-base font-normal leading-normal pb-3 pt-1 px-4 text-center">Helping farmers use drone power for better, smarter agriculture.</p>
-        <div class="flex w-full grow bg-[#f9fbf9] @container p-4">
-          <div class="w-full gap-1 overflow-hidden bg-[#f9fbf9] @[480px]:gap-2 aspect-[3/2] rounded-xl flex">
-            <div
-              class="w-full bg-center bg-no-repeat bg-cover aspect-auto rounded-none flex-1"
-              style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBs396kDPAqZUEUDScMVjPgUzpm-qojrjfLI0r_yVYyCO65qFlMfHidQVhB6HHmQT0dqb3dB2FvSBM_AuKuBHU2YwuURnTwD8OGRsmtiyCdyQ6V_pwKptXSg8Ofn5MQU05qrusvrjjQGfIfHCPjaWmrv-q5hEW8BnAwrlaQXhqL3y-IRhfX_jY6tk4qEJrBDLpU0u48l4MLuMVjMbBV5mr_5nJpmxjs4FLwM4z-5PSoj9mbJcn0ep7MRlhlmavDyvmjxQ8wrwZOQDQR");'
-            ></div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="flex px-4 py-3">
-          <button
-            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 flex-1 bg-[#7ace7a] text-[#111811] text-base font-bold leading-normal tracking-[0.015em]"
-            onclick="window.location.href='login.html'"
-          >
-            <span data-translate="Get Started" class="truncate">Get Started</span>
-          </button>
-        </div>
-        <div class="h-5 bg-[#f9fbf9]"></div>
-      </div>
-    </div>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VayuDrone</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+  <link rel="stylesheet" href="dark-mode.css">
+  <link rel="stylesheet" href="animations.css">
+  <link rel="stylesheet" href="responsive.css">
+  <style>
+    .hero-image {
+      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBs396kDPAqZUEUDScMVjPgUzpm-qojrjfLI0r_yVYyCO65qFlMfHidQVhB6HHmQT0dqb3dB2FvSBM_AuKuBHU2YwuURnTwD8OGRsmtiyCdyQ6V_pwKptXSg8Ofn5MQU05qrusvrjjQGfIfHCPjaWmrv-q5hEW8BnAwrlaQXhqL3y-IRhfX_jY6tk4qEJrBDLpU0u48l4MLuMVjMbBV5mr_5nJpmxjs4FLwM4z-5PSoj9mbJcn0ep7MRlhlmavDyvmjxQ8wrwZOQDQR');
+    }
+  </style>
+</head>
+<body class="fade-in">
+  <div class="main-content container text-center">
+    <h1 class="text-3xl font-bold mt-8" data-translate="VayuDrone">VayuDrone</h1>
+    <h2 class="text-2xl mt-4" data-translate="Namaste! Welcome to VayuDrone">Namaste! Welcome to VayuDrone</h2>
+    <p class="mt-2 text-lg" data-translate="Helping farmers use drone power for better, smarter agriculture.">Helping farmers use drone power for better, smarter agriculture.</p>
+    <div class="hero-image h-64 bg-cover bg-center mt-8"></div>
+    <button class="w-full mt-8 bg-[#9fd391] text-white py-3 rounded-full text-lg" onclick="window.location.href='login.html'" data-translate="Get Started">Get Started</button>
+  </div>
+  <div class="fixed top-4 right-4">
+    <button onclick="window.location.href='help.html'">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-help-circle"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+    </button>
+  </div>
+  <div class="fixed bottom-4 right-4">
+    <select id="languageSelector" class="form-select">
+      <option value="en">EN</option>
+      <option value="hi">HI</option>
+    </select>
+  </div>
+  <script src="dark-mode.js"></script>
+  <script src="translation.js"></script>
+</body>
 </html>

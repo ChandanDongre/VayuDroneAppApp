@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Check if user is logged in
+    if (localStorage.getItem('user') && !window.location.pathname.includes('home.html')) {
+        // window.location.href = 'home.html';
+    }
+
     // Save profile data
     const saveProfileButton = document.querySelector('button.bg-[#7cc169]');
     if (saveProfileButton && saveProfileButton.textContent.trim() === 'Save and Continue') {
@@ -71,3 +76,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
+function logout() {
+    localStorage.removeItem('user');
+    localStorage.removeItem('userProfile');
+    window.location.href = 'login.html';
+}

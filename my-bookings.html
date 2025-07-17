@@ -9,15 +9,16 @@
     />
 
 
-    <title data-translate="Stitch Design">Stitch Design</title>
+    <title>VayuDrone</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link rel="stylesheet" href="dark-mode.css" />
-<link rel="stylesheet" href="animations.css" />
+    <link rel="stylesheet" href="animations.css" />
+    <link rel="stylesheet" href="responsive.css" />
   </head>
-  <body>
+  <body class="fade-in">
     <script src="dark-mode.js"></script>
     <script src="location.js"></script>
     <script src="translation.js"></script>
@@ -25,7 +26,7 @@
       class="relative flex size-full min-h-screen flex-col bg-[#f9fcf8] justify-between group/design-root overflow-x-hidden"
       style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'
     >
-      <div>
+      <div class="main-content">
         <div class="flex items-center bg-[#f9fcf8] p-4 pb-2 justify-between">
           <h2 data-translate="My Bookings" class="text-[#111b0e] text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pl-12">My Bookings</h2>
           <div class="flex w-12 items-center justify-end">
@@ -75,8 +76,6 @@
               <button
                 class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 flex-row-reverse bg-[#eaf3e7] text-[#111b0e] text-sm font-medium leading-normal w-fit"
                 onclick="window.location.href='booking-details.html'"
-                onclick="window.location.href='booking-details.html'"
-                onclick="window.location.href='booking-details.html'"
               >
                 <span data-translate="View Details" class="truncate">View Details</span>
               </button>
@@ -97,6 +96,7 @@
               </div>
               <button
                 class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 flex-row-reverse bg-[#eaf3e7] text-[#111b0e] text-sm font-medium leading-normal w-fit"
+                onclick="window.location.href='booking-details.html'"
               >
                 <span data-translate="View Details" class="truncate">View Details</span>
               </button>
@@ -117,6 +117,7 @@
               </div>
               <button
                 class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 flex-row-reverse bg-[#eaf3e7] text-[#111b0e] text-sm font-medium leading-normal w-fit"
+                onclick="window.location.href='booking-details.html'"
               >
                 <span data-translate="View Details" class="truncate">View Details</span>
               </button>
@@ -128,40 +129,11 @@
           </div>
         </div>
       </div>
-      <div>
-        <div class="flex gap-2 border-t border-[#eaf3e7] bg-[#f9fcf8] px-4 pb-3 pt-2">
-          <a class="just flex flex-1 flex-col items-center justify-end gap-1 text-[#5e974e]" href="home.html">
-            <div class="text-[#5e974e] flex h-8 items-center justify-center" data-icon="House" data-size="24px" data-weight="regular">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                <path
-                  d="M218.83,103.77l-80-75.48a1.14,1.14,0,0,1-.11-.11,16,16,0,0,0-21.53,0l-.11.11L37.17,103.77A16,16,0,0,0,32,115.55V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V160h32v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V115.55A16,16,0,0,0,218.83,103.77ZM208,208H160V160a16,16,0,0,0-16-16H112a16,16,0,0,0-16,16v48H48V115.55l.11-.1L128,40l79.9,75.43.11.1Z"
-                ></path>
-              </svg>
-            </div>
-            <p data-translate="Home" class="text-[#5e974e] text-xs font-medium leading-normal tracking-[0.015em]">Home</p>
-          </a>
-          <a class="just flex flex-1 flex-col items-center justify-end gap-1 rounded-full text-[#111b0e]" href="my-bookings.html">
-            <div class="text-[#111b0e] flex h-8 items-center justify-center" data-icon="Calendar" data-size="24px" data-weight="fill">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                <path
-                  d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM112,184a8,8,0,0,1-16,0V132.94l-4.42,2.22a8,8,0,0,1-7.16-14.32l16-8A8,8,0,0,1,112,120Zm56-8a8,8,0,0,1,0,16H136a8,8,0,0,1-6.4-12.8l28.78-38.37A8,8,0,1,0,145.07,132a8,8,0,1,1-13.85-8A24,24,0,0,1,176,136a23.76,23.76,0,0,1-4.84,14.45L152,176ZM48,80V48H72v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80Z"
-                ></path>
-              </svg>
-            </div>
-            <p data-translate="Bookings" class="text-[#111b0e] text-xs font-medium leading-normal tracking-[0.015em]">Bookings</p>
-          </a>
-          <a class="just flex flex-1 flex-col items-center justify-end gap-1 text-[#5e974e]" href="profile-overview.html">
-            <div class="text-[#5e974e] flex h-8 items-center justify-center" data-icon="User" data-size="24px" data-weight="regular">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                <path
-                  d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"
-                ></path>
-              </svg>
-            </div>
-            <p data-translate="Profile" class="text-[#5e974e] text-xs font-medium leading-normal tracking-[0.015em]">Profile</p>
-          </a>
-        </div>
-        <div class="h-5 bg-[#f9fcf8]"></div>
+      <div class="bottom-nav">
+        <a href="home.html"><div class="icon">🏠</div><span data-translate="Home">Home</span></a>
+        <a href="my-bookings.html" class="active"><div class="icon">📋</div><span data-translate="My Bookings">My Bookings</span></a>
+        <a href="profile-overview.html"><div class="icon">👤</div><span data-translate="Profile">Profile</span></a>
+        <a href="help-center.html"><div class="icon">❓</div><span data-translate="Help">Help</span></a>
       </div>
     </div>
   </body>

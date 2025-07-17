@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VayuDrone - Login</title>
+  <title>VayuDrone - Signup</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
   <link rel="stylesheet" href="dark-mode.css">
   <link rel="stylesheet" href="animations.css">
@@ -12,16 +12,25 @@
 <body class="fade-in">
   <div class="main-content container text-center">
     <h1 class="text-3xl font-bold mt-8" data-translate="VayuDrone">VayuDrone</h1>
-    <p class="mt-2 text-lg" data-translate="Smart farming starts here.">Smart farming starts here.</p>
-    <h2 class="text-2xl mt-8 font-bold" data-translate="Login to Continue">Login to Continue</h2>
+    <h2 class="text-2xl mt-8 font-bold" data-translate="Register a New Account">Register a New Account</h2>
     <div class="mt-8">
       <input type="text" id="mobileNumber" class="form-input" placeholder="Mobile Number" data-translate="Mobile Number">
+      <div class="mt-4">
+        <label class="mr-4">
+          <input type="radio" name="role" value="farmer" checked>
+          <span data-translate="Farmer">Farmer</span>
+        </label>
+        <label>
+          <input type="radio" name="role" value="agent">
+          <span data-translate="Agent">Agent</span>
+        </label>
+      </div>
       <button class="w-full mt-4 bg-[#9fd391] text-white py-3 rounded-full text-lg" onclick="sendOtp()" data-translate="Send OTP">Send OTP</button>
       <input type="text" id="otp" class="form-input mt-4" placeholder="Enter OTP" data-translate="Enter OTP">
-      <button class="w-full mt-4 bg-[#9fd391] text-white py-3 rounded-full text-lg" onclick="login()" data-translate="Login">Login</button>
+      <button class="w-full mt-4 bg-[#9fd391] text-white py-3 rounded-full text-lg" onclick="createAccount()" data-translate="Create Account">Create Account</button>
     </div>
     <div class="mt-8">
-      <a href="signup.html" class="text-lg" data-translate="New user? Sign Up Here">New user? Sign Up Here</a>
+      <a href="login.html" class="text-lg" data-translate="Already have an account? [Login Here]">Already have an account? [Login Here]</a>
       <a href="support.html" class="text-lg ml-4" data-translate="Need Help?">Need Help?</a>
     </div>
   </div>
@@ -45,16 +54,22 @@
       localStorage.setItem('otp', '123456'); // Dummy OTP
     }
 
-    function login() {
+    function createAccount() {
+      const mobileNumber = document.getElementById('mobileNumber').value;
       const otp = document.getElementById('otp').value;
+      const role = document.querySelector('input[name="role"]:checked').value;
       const storedOtp = localStorage.getItem('otp');
+      if (mobileNumber.length !== 10 || !/^\d{10}$/.test(mobileNumber)) {
+        alert('Please enter a valid 10-digit mobile number.');
+        return;
+      }
       if (otp.length !== 6 || !/^\d{6}$/.test(otp)) {
         alert('Please enter a valid 6-digit OTP.');
         return;
       }
       if (otp === storedOtp) {
-        localStorage.setItem('user', JSON.stringify({ mobileNumber: document.getElementById('mobileNumber').value }));
-        window.location.href = 'home.html';
+        localStorage.setItem('user', JSON.stringify({ mobileNumber, role }));
+        window.location.href = 'complete-profile.html';
       } else {
         alert('Invalid OTP.');
       }

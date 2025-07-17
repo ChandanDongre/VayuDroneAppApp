@@ -9,15 +9,16 @@
     />
 
 
-    <title data-translate="Stitch Design">Stitch Design</title>
+    <title>VayuDrone</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link rel="stylesheet" href="dark-mode.css" />
-<link rel="stylesheet" href="animations.css" />
+    <link rel="stylesheet" href="animations.css" />
+    <link rel="stylesheet" href="responsive.css" />
   </head>
-  <body>
+  <body class="fade-in">
     <script src="dark-mode.js"></script>
     <script src="location.js"></script>
     <script src="translation.js"></script>
@@ -25,7 +26,7 @@
       class="relative flex size-full min-h-screen flex-col bg-[#f9fbf9] justify-between group/design-root overflow-x-hidden"
       style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'
     >
-      <div>
+      <div class="main-content">
         <div class="flex items-center bg-[#f9fbf9] p-4 pb-2 justify-between">
           <div class="text-[#121810] flex size-12 shrink-0 items-center" data-icon="X" data-size="24px" data-weight="regular" onclick="window.location.href='home.html'">
             <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
@@ -58,9 +59,11 @@
         </div>
         <p data-translate="Go to Home" class="text-[#668a5c] text-sm font-normal leading-normal pb-3 pt-1 px-4 text-center underline" onclick="window.location.href='home.html'">Go to Home</p>
       </div>
-      <div>
-        <p data-translate="Need help?" class="text-[#668a5c] text-sm font-normal leading-normal pb-3 pt-1 px-4 text-center underline" onclick="window.location.href='help-center.html'">Need help?</p>
-        <div class="h-5 bg-[#f9fbf9]"></div>
+      <div class="bottom-nav">
+        <a href="home.html" class="active"><div class="icon">🏠</div><span data-translate="Home">Home</span></a>
+        <a href="my-bookings.html"><div class="icon">📋</div><span data-translate="My Bookings">My Bookings</span></a>
+        <a href="profile-overview.html"><div class="icon">👤</div><span data-translate="Profile">Profile</span></a>
+        <a href="help-center.html"><div class="icon">❓</div><span data-translate="Help">Help</span></a>
       </div>
     </div>
   </body>

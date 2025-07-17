@@ -9,15 +9,16 @@
     />
 
 
-    <title data-translate="Stitch Design">Stitch Design</title>
+    <title>VayuDrone</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link rel="stylesheet" href="dark-mode.css" />
-<link rel="stylesheet" href="animations.css" />
+    <link rel="stylesheet" href="animations.css" />
+    <link rel="stylesheet" href="responsive.css" />
   </head>
-  <body>
+  <body class="fade-in">
     <script src="dark-mode.js"></script>
     <script src="location.js"></script>
     <script src="translation.js"></script>
@@ -25,7 +26,7 @@
       class="relative flex size-full min-h-screen flex-col bg-[#f9fbf9] justify-between group/design-root overflow-x-hidden"
       style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'
     >
-      <div>
+      <div class="main-content">
         <div class="flex items-center bg-[#f9fbf9] p-4 pb-2 justify-between">
           <div class="text-[#121811] flex size-12 shrink-0 items-center" data-icon="ArrowLeft" data-size="24px" data-weight="regular" onclick="window.location.href='home.html'">
             <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
@@ -108,25 +109,11 @@
         </div>
         <p data-translate="Estimated Time of Arrival" class="text-[#67875e] text-sm font-normal leading-normal pb-3 pt-1 px-4 text-center">Estimated Time of Arrival</p>
       </div>
-      <div>
-        <div class="flex justify-center">
-          <div class="flex flex-1 gap-3 max-w-[480px] flex-col items-stretch px-4 py-3">
-            <button
-              class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#86c973] text-[#121811] text-sm font-bold leading-normal tracking-[0.015em] w-full"
-              onclick="window.location.href='help-center.html'"
-            >
-              <span data-translate="Contact Operator" class="truncate">Contact Operator</span>
-            </button>
-            <button
-              class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#ebf0ea] text-[#121811] text-sm font-bold leading-normal tracking-[0.015em] w-full"
-              onclick="window.location.href='my-bookings.html'"
-            >
-              <span data-translate="Cancel Booking" class="truncate">Cancel Booking</span>
-            </button>
-          </div>
-        </div>
-        <p data-translate="Note: Actual timing may vary due to weather conditions and drone availability." class="text-[#67875e] text-sm font-normal leading-normal pb-3 pt-1 px-4 text-center">Note: Actual timing may vary due to weather conditions and drone availability.</p>
-        <div class="h-5 bg-[#f9fbf9]"></div>
+      <div class="bottom-nav">
+        <a href="home.html" class="active"><div class="icon">🏠</div><span data-translate="Home">Home</span></a>
+        <a href="my-bookings.html"><div class="icon">📋</div><span data-translate="My Bookings">My Bookings</span></a>
+        <a href="profile-overview.html"><div class="icon">👤</div><span data-translate="Profile">Profile</span></a>
+        <a href="help-center.html"><div class="icon">❓</div><span data-translate="Help">Help</span></a>
       </div>
     </div>
   </body>
