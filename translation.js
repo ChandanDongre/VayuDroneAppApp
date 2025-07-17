@@ -343,7 +343,9 @@ const translations = {
     "New drone spraying service available": "New drone spraying service available",
     "Booking cancelled due to weather": "Booking cancelled due to weather",
     "Nutrient deficiency detected in section C": "Nutrient deficiency detected in section C",
-    "Refer a friend and get a free service": "Refer a friend and get a free service"
+    "Refer a friend and get a free service": "Refer a friend and get a free service",
+    "Agent": "Agent",
+    "Logout": "Logout"
   },
   hi: {
     "Namaste! Welcome to VayuDrone": "नमस्ते! वायुड्रोन में आपका स्वागत है",
@@ -689,7 +691,9 @@ const translations = {
     "New drone spraying service available": "नई ड्रोन छिड़काव सेवा उपलब्ध है",
     "Booking cancelled due to weather": "मौसम के कारण बुकिंग रद्द",
     "Nutrient deficiency detected in section C": "खंड सी में पोषक तत्वों की कमी का पता चला",
-    "Refer a friend and get a free service": "एक दोस्त को रेफर करें और एक मुफ्त सेवा प्राप्त करें"
+    "Refer a friend and get a free service": "एक दोस्त को रेफर करें और एक मुफ्त सेवा प्राप्त करें",
+    "Agent": "एजेंट",
+    "Logout": "लॉग आउट"
   }
 };
 

@@ -295,3 +295,7 @@ body.dark-mode {
 .dark-mode .has-[:checked]\:text-[#111b0e] {
     color: #ffffff !important;
 }
+
+.dark-mode .form-input::placeholder {
+  color: #888888;
+}
