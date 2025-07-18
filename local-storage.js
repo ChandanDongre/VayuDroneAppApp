@@ -5,25 +5,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Save profile data
-    const saveProfileButton = document.querySelector('button.bg-[#7cc169]');
+    const saveProfileButton = document.querySelector('button.bg-[#9fd391]');
     if (saveProfileButton && saveProfileButton.textContent.trim() === 'Save and Continue') {
         saveProfileButton.addEventListener('click', () => {
+            const fullName = document.getElementById('fullName').value;
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            const age = document.getElementById('age').value;
+            const address = document.getElementById('address').value;
+            const location = document.getElementById('location').value;
+
+            if (!fullName || !age || !address) {
+                alert('Please fill out all fields.');
+                return;
+            }
+
+            if (age < 18) {
+                alert('You must be at least 18 years old.');
+                return;
+            }
+
             const userProfile = {
-                fullName: document.querySelector('input[placeholder="Enter your full name"]').value,
-                gender: document.querySelector('select.form-input').value,
-                age: document.querySelector('input[placeholder="Enter your age"]').value,
-                farmerType: document.querySelectorAll('select.form-input')[1].value,
-                farmSize: document.querySelectorAll('select.form-input')[2].value,
-                houseNo: document.querySelector('input[placeholder="Enter house number"]').value,
-                street: document.querySelector('input[placeholder="Enter street name"]').value,
-                area: document.querySelector('input[placeholder="Enter area"]').value,
-                landmark: document.querySelector('input[placeholder="Enter landmark"]').value,
-                district: document.querySelector('input[placeholder="Enter district"]').value,
-                village: document.querySelector('input[placeholder="Enter village"]').value,
-                crops: document.querySelectorAll('select.form-input')[3].value,
-                whatsappOptIn: document.querySelector('input[type="checkbox"]').checked
+                fullName,
+                gender,
+                age,
+                address,
+                location
             };
             localStorage.setItem('userProfile', JSON.stringify(userProfile));
+            window.location.href = 'home.html';
         });
     }
 

@@ -1,38 +1,29 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const farmLocationInput = document.querySelector('input[placeholder="Farm Location"]');
-    const addressInput = document.querySelector('input[placeholder="Address"]');
-    const cityInput = document.querySelector('input[placeholder="City"]');
-    const stateInput = document.querySelector('input[placeholder="State"]');
-    const zipCodeInput = document.querySelector('input[placeholder="Zip Code"]');
+    const locationInput = document.getElementById('location');
 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
+            const apiKey = 'YOUR_API_KEY'; // Replace with your ipgeolocation.io API key
 
-            // Using a free reverse geocoding API to get address details
-            fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
+            fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${apiKey}&lat=${lat}&lon=${lon}`)
                 .then(response => response.json())
                 .then(data => {
-                    if (farmLocationInput) {
-                        farmLocationInput.value = data.display_name;
-                    }
-                    if (addressInput) {
-                        addressInput.value = `${data.address.road || ''}, ${data.address.suburb || ''}`;
-                    }
-                    if (cityInput) {
-                        cityInput.value = data.address.city || data.address.town || data.address.village || '';
-                    }
-                    if (stateInput) {
-                        stateInput.value = data.address.state || '';
-                    }
-                    if (zipCodeInput) {
-                        zipCodeInput.value = data.address.postcode || '';
+                    if (locationInput) {
+                        locationInput.value = `${data.city}, ${data.state_prov}, ${data.country_name}`;
                     }
                 })
                 .catch(error => {
                     console.error('Error fetching address:', error);
+                    if (locationInput) {
+                        locationInput.value = 'Location not available';
+                    }
                 });
         });
+    } else {
+        if (locationInput) {
+            locationInput.value = 'Geolocation is not supported by this browser.';
+        }
     }
 });

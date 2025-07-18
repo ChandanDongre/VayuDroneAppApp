@@ -345,7 +345,10 @@ const translations = {
     "Nutrient deficiency detected in section C": "Nutrient deficiency detected in section C",
     "Refer a friend and get a free service": "Refer a friend and get a free service",
     "Agent": "Agent",
-    "Logout": "Logout"
+    "Logout": "Logout",
+    "Male": "Male",
+    "Female": "Female",
+    "Location": "Location"
   },
   hi: {
     "Namaste! Welcome to VayuDrone": "नमस्ते! वायुड्रोन में आपका स्वागत है",
