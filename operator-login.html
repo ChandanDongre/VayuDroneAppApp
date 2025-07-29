@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VayuDrone - Login</title>
+  <title>VayuDrone - Operator Login</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
   <link rel="stylesheet" href="dark-mode.css">
   <link rel="stylesheet" href="animations.css">
@@ -12,28 +12,13 @@
 <body class="fade-in">
   <div class="main-content container text-center">
     <h1 class="text-3xl font-bold mt-8" data-translate="VayuDrone">VayuDrone</h1>
-    <p class="mt-2 text-lg" data-translate="Smart farming starts here.">Smart farming starts here.</p>
-    <h2 class="text-2xl mt-8 font-bold" data-translate="Login to Continue">Login to Continue</h2>
+    <p class="mt-2 text-lg" data-translate="Operator Login">Operator Login</p>
     <div class="mt-8">
       <input type="text" id="mobileNumber" class="form-input" placeholder="Mobile Number" data-translate="Mobile Number">
       <button class="w-full mt-4 bg-[#9fd391] text-white py-3 rounded-full text-lg" onclick="sendOtp()" data-translate="Send OTP">Send OTP</button>
       <input type="text" id="otp" class="form-input mt-4" placeholder="Enter OTP" data-translate="Enter OTP">
       <button class="w-full mt-4 bg-[#9fd391] text-white py-3 rounded-full text-lg" onclick="login()" data-translate="Login">Login</button>
-      <div class="flex items-center justify-center mt-4">
-        <input type="checkbox" id="isAgent" class="form-checkbox">
-        <label for="isAgent" class="ml-2" data-translate="I am an Agent">I am an Agent</label>
-      </div>
     </div>
-    <div class="mt-8">
-      <a href="signup.html" class="text-lg" data-translate="New user? Sign Up Here">New user? Sign Up Here</a>
-      <a href="support.html" class="text-lg ml-4" data-translate="Need Help?">Need Help?</a>
-    </div>
-  </div>
-  <div class="fixed bottom-4 right-4">
-    <select id="languageSelector" class="form-select">
-      <option value="en">EN</option>
-      <option value="hi">HI</option>
-    </select>
   </div>
   <script src="dark-mode.js"></script>
   <script src="translation.js"></script>
@@ -46,33 +31,25 @@
       }
       // Simulate sending OTP
       alert('OTP sent to ' + mobileNumber);
-      localStorage.setItem('otp', '123456'); // Dummy OTP
+      localStorage.setItem('operatorOtp', '123456'); // Dummy OTP
     }
 
     function login() {
       const otp = document.getElementById('otp').value;
-      const storedOtp = localStorage.getItem('otp');
-      const isAgent = document.getElementById('isAgent').checked;
-
+      const storedOtp = localStorage.getItem('operatorOtp');
       if (otp.length !== 6 || !/^\d{6}$/.test(otp)) {
         alert('Please enter a valid 6-digit OTP.');
         return;
       }
-
       if (otp === storedOtp) {
-        const user = {
+        // In a real application, you would verify the operator's credentials against a database.
+        // For this prototype, we'll just create a dummy operator object.
+        const operator = {
           mobileNumber: document.getElementById('mobileNumber').value,
-          isAgent: isAgent
+          name: 'John Doe' // Dummy name
         };
-        localStorage.setItem('user', JSON.stringify(user));
-
-        if (isAgent) {
-          // Redirect to agent profile page if agent account is not approved
-          // For now, we will redirect to a new agent profile page
-          window.location.href = 'agent-profile.html';
-        } else {
-          window.location.href = 'home.html';
-        }
+        localStorage.setItem('operator', JSON.stringify(operator));
+        window.location.href = 'operator-dashboard.html';
       } else {
         alert('Invalid OTP.');
       }

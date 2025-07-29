@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VayuDrone - Operator Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+  <link rel="stylesheet" href="dark-mode.css">
+  <link rel="stylesheet" href="animations.css">
+  <link rel="stylesheet" href="responsive.css">
+</head>
+<body class="fade-in">
+  <div class="main-content container">
+    <div class="flex items-center bg-[#f9fcf8] p-4 pb-2 justify-between">
+      <h2 data-translate="Today's Tasks" class="text-[#111b0e] text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Today's Tasks</h2>
+      <div class="flex w-12 items-center justify-end">
+        <button
+          class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 bg-transparent text-[#111b0e] gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0"
+          onclick="logout()"
+        >
+          <span data-translate="Logout">Logout</span>
+        </button>
+      </div>
+    </div>
+    <div id="tasks-list" class="p-4 space-y-4">
+      <!-- Tasks will be dynamically populated here -->
+    </div>
+  </div>
+  <script src="dark-mode.js"></script>
+  <script src="translation.js"></script>
+  <script src="notifications.js"></script>
+  <script>
+    const operator = JSON.parse(localStorage.getItem('operator'));
+    const allBookings = JSON.parse(localStorage.getItem('bookings')) || [];
+    const tasksList = document.getElementById('tasks-list');
+
+    if (!operator) {
+      window.location.href = 'operator-login.html';
+    }
+
+    function renderTasks() {
+      const assignedTasks = allBookings.filter(booking => booking.operator && booking.operator.mobileNumber === operator.mobileNumber && booking.status !== 'Completed' && booking.status !== 'Cancelled');
+      tasksList.innerHTML = '';
+      if (assignedTasks.length === 0) {
+        tasksList.innerHTML = `<p class="text-center text-gray-500" data-translate="No tasks assigned for today.">No tasks assigned for today.</p>`;
+        return;
+      }
+      assignedTasks.forEach(task => {
+        const taskElement = document.createElement('div');
+        taskElement.classList.add('flex', 'items-stretch', 'justify-between', 'gap-4', 'rounded-xl', 'p-4', 'bg-white', 'shadow-md');
+        taskElement.innerHTML = `
+          <div class="flex flex-[2_2_0px] flex-col gap-4">
+            <div class="flex flex-col gap-1">
+              <p class="text-sm text-gray-500">Booking ID: #${task.id || (Math.random() * 100000).toFixed(0)}</p>
+              <p class="text-base font-bold">${task.farmerName || 'Self'}</p>
+              <p class="text-sm text-gray-500">${task.village}, ${task.district}</p>
+              <p class="text-sm text-gray-500" data-translate="Area:">Area: ${task.area.toFixed(2)} acres</p>
+              <p class="text-sm text-gray-500" data-translate="Status:">Status: ${task.status}</p>
+            </div>
+            <div class="flex gap-2">
+              <button
+                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#b2e5b2] text-[#121612] text-sm font-medium leading-normal"
+                onclick="startJob('${task.id}')"
+                ${task.status !== 'Confirmed' ? 'disabled' : ''}
+              >
+                <span data-translate="Start Job" class="truncate">Start Job</span>
+              </button>
+              <button
+                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#b2e5b2] text-[#121612] text-sm font-medium leading-normal"
+                onclick="endJob('${task.id}')"
+                ${task.status !== 'In Progress' ? 'disabled' : ''}
+              >
+                <span data-translate="End Job" class="truncate">End Job</span>
+              </button>
+              <button
+                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-red-500 text-white text-sm font-medium leading-normal"
+                onclick="cancelTask('${task.id}')"
+              >
+                <span data-translate="Cancel" class="truncate">Cancel</span>
+              </button>
+              <button
+                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-yellow-500 text-white text-sm font-medium leading-normal"
+                onclick="rescheduleTask('${task.id}')"
+              >
+                <span data-translate="Reschedule" class="truncate">Reschedule</span>
+              </button>
+              <a href="tel:${task.farmerMobile}" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-blue-500 text-white text-sm font-medium leading-normal">
+                <span data-translate="Call Farmer" class="truncate">Call Farmer</span>
+              </a>
+            </div>
+          </div>
+        `;
+        tasksList.appendChild(taskElement);
+      });
+    }
+
+    function startJob(bookingId) {
+      const bookingIndex = allBookings.findIndex(b => b.id == bookingId);
+      if (bookingIndex !== -1) {
+        allBookings[bookingIndex].status = 'In Progress';
+        localStorage.setItem('bookings', JSON.stringify(allBookings));
+        renderTasks();
+        showNotification('Job Started!', {
+          body: `The operator has started the job for booking #${bookingId}.`
+        });
+      }
+    }
+
+    function endJob(bookingId) {
+      const bookingIndex = allBookings.findIndex(b => b.id == bookingId);
+      if (bookingIndex !== -1) {
+        allBookings[bookingIndex].status = 'Completed';
+        localStorage.setItem('bookings', JSON.stringify(allBookings));
+        renderTasks();
+        showNotification('Job Completed!', {
+          body: `The job for booking #${bookingId} has been completed.`
+        });
+      }
+    }
+
+    function cancelTask(bookingId) {
+      const reason = prompt('Please enter a reason for cancellation:');
+      if (reason) {
+        const bookingIndex = allBookings.findIndex(b => b.id == bookingId);
+        if (bookingIndex !== -1) {
+          allBookings[bookingIndex].status = 'Cancelled';
+          allBookings[bookingIndex].cancellationReason = reason;
+          localStorage.setItem('bookings', JSON.stringify(allBookings));
+          renderTasks();
+        }
+      }
+    }
+
+    function rescheduleTask(bookingId) {
+      const bookingIndex = allBookings.findIndex(b => b.id == bookingId);
+      if (bookingIndex !== -1) {
+        allBookings[bookingIndex].status = 'Rescheduled';
+        localStorage.setItem('bookings', JSON.stringify(allBookings));
+        renderTasks();
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('operator');
+      window.location.href = 'operator-login.html';
+    }
+
+    renderTasks();
+  </script>
+</body>
+</html>

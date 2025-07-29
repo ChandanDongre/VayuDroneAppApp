@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VayuDrone - Agent Profile</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+  <link rel="stylesheet" href="dark-mode.css">
+  <link rel="stylesheet" href="animations.css">
+  <link rel="stylesheet" href="responsive.css">
+</head>
+<body class="fade-in">
+  <div class="main-content container text-center">
+    <h1 class="text-3xl font-bold mt-8" data-translate="VayuDrone">VayuDrone</h1>
+    <p class="mt-2 text-lg" data-translate="Smart farming starts here.">Smart farming starts here.</p>
+    <h2 class="text-2xl mt-8 font-bold" data-translate="Complete Your Profile">Complete Your Profile</h2>
+    <div class="mt-8">
+      <input type="text" id="fullName" class="form-input" placeholder="Full Name" data-translate="Full Name">
+      <input type="text" id="shopName" class="form-input mt-4" placeholder="Shop Name" data-translate="Shop Name">
+      <input type="text" id="village" class="form-input mt-4" placeholder="Village/City" data-translate="Village/City">
+      <input type="text" id="district" class="form-input mt-4" placeholder="District" data-translate="District">
+      <button class="w-full mt-4 bg-[#9fd391] text-white py-3 rounded-full text-lg" onclick="saveProfile()" data-translate="Save Profile">Save Profile</button>
+    </div>
+  </div>
+  <script src="dark-mode.js"></script>
+  <script src="translation.js"></script>
+  <script>
+    function saveProfile() {
+      const fullName = document.getElementById('fullName').value;
+      const shopName = document.getElementById('shopName').value;
+      const village = document.getElementById('village').value;
+      const district = document.getElementById('district').value;
+      const user = JSON.parse(localStorage.getItem('user'));
+
+      if (!fullName || !shopName || !village || !district) {
+        alert('Please fill in all fields.');
+        return;
+      }
+
+      const agentProfile = {
+        ...user,
+        fullName,
+        shopName,
+        village,
+        district,
+        approved: false
+      };
+
+      localStorage.setItem('user', JSON.stringify(agentProfile));
+      alert('Profile saved successfully. Your account is pending approval from the admin.');
+      window.location.href = 'home.html';
+    }
+  </script>
+</body>
+</html>

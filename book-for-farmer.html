@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VayuDrone - Book for a Farmer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+  <link rel="stylesheet" href="dark-mode.css">
+  <link rel="stylesheet" href="animations.css">
+  <link rel="stylesheet" href="responsive.css">
+</head>
+<body class="fade-in">
+  <div class="main-content container text-center">
+    <h1 class="text-3xl font-bold mt-8" data-translate="VayuDrone">VayuDrone</h1>
+    <p class="mt-2 text-lg" data-translate="Smart farming starts here.">Smart farming starts here.</p>
+    <h2 class="text-2xl mt-8 font-bold" data-translate="Book for a Farmer">Book for a Farmer</h2>
+    <div class="mt-8">
+      <input type="text" id="farmerName" class="form-input" placeholder="Farmer's Name" data-translate="Farmer's Name">
+      <input type="text" id="farmerMobile" class="form-input mt-4" placeholder="Farmer's Mobile Number" data-translate="Farmer's Mobile Number">
+      <input type="date" id="bookingDate" class="form-input mt-4">
+      <button class="w-full mt-4 bg-[#9fd391] text-white py-3 rounded-full text-lg" onclick="bookForFarmer()" data-translate="Next">Next</button>
+    </div>
+  </div>
+  <script src="dark-mode.js"></script>
+  <script src="translation.js"></script>
+  <script>
+    function bookForFarmer() {
+      const farmerName = document.getElementById('farmerName').value;
+      const farmerMobile = document.getElementById('farmerMobile').value;
+      const bookingDate = document.getElementById('bookingDate').value;
+
+      if (!farmerName || !farmerMobile || !bookingDate) {
+        alert('Please fill in all fields.');
+        return;
+      }
+
+      const bookingDetails = {
+        farmerName,
+        farmerMobile,
+        bookingDate
+      };
+
+      localStorage.setItem('bookingDetails', JSON.stringify(bookingDetails));
+      window.location.href = 'book-drone-service-initial.html';
+    }
+  </script>
+</body>
+</html>

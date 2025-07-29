@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VayuDrone - My Earnings</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+  <link rel="stylesheet" href="dark-mode.css">
+  <link rel="stylesheet" href="animations.css">
+  <link rel="stylesheet" href="responsive.css">
+</head>
+<body class="fade-in">
+  <div class="main-content container">
+    <h1 class="text-3xl font-bold mt-8 text-center" data-translate="My Earnings">My Earnings</h1>
+    <div class="mt-8">
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-2xl font-bold mb-4" data-translate="Total Earnings">Total Earnings</h2>
+        <p class="text-3xl font-bold text-green-500">₹0.00</p>
+      </div>
+      <div class="mt-8">
+        <h2 class="text-2xl font-bold mb-4" data-translate="Earnings History">Earnings History</h2>
+        <div id="earnings-history" class="space-y-4">
+          <!-- Earnings history will be dynamically populated here -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="dark-mode.js"></script>
+  <script src="translation.js"></script>
+  <script>
+    const user = JSON.parse(localStorage.getItem('user'));
+    const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+    let totalEarnings = 0;
+    const earningsHistory = document.getElementById('earnings-history');
+
+    if (user && user.isAgent) {
+      const agentBookings = bookings.filter(booking => booking.agentId === user.mobileNumber && booking.status === 'Completed');
+      agentBookings.forEach(booking => {
+        const commission = booking.area * 20; // 20 rupees per acre
+        totalEarnings += commission;
+        const earningElement = document.createElement('div');
+        earningElement.classList.add('bg-white', 'rounded-lg', 'shadow-md', 'p-4');
+        earningElement.innerHTML = `
+          <div class="flex justify-between">
+            <div>
+              <p class="font-bold">${booking.farmerName}</p>
+              <p class="text-sm text-gray-500">${new Date(booking.date).toLocaleDateString()}</p>
+            </div>
+            <div class="text-right">
+              <p class="font-bold text-green-500">+ ₹${commission.toFixed(2)}</p>
+              <p class="text-sm text-gray-500">${booking.area} acres</p>
+            </div>
+          </div>
+        `;
+        earningsHistory.appendChild(earningElement);
+      });
+    }
+
+    document.querySelector('.text-3xl.font-bold.text-green-500').textContent = `₹${totalEarnings.toFixed(2)}`;
+  </script>
+</body>
+</html>

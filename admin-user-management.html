@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VayuDrone - User Management</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+  <link rel="stylesheet" href="dark-mode.css">
+  <link rel="stylesheet" href="animations.css">
+  <link rel="stylesheet" href="responsive.css">
+</head>
+<body class="fade-in">
+  <div class="main-content container">
+    <div class="flex items-center bg-[#f9fcf8] p-4 pb-2 justify-between">
+      <h2 data-translate="User Management" class="text-[#111b0e] text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">User Management</h2>
+      <div class="flex w-12 items-center justify-end">
+        <button
+          class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 bg-transparent text-[#111b0e] gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0"
+          onclick="window.location.href='admin-dashboard.html'"
+        >
+          <span data-translate="Back">Back</span>
+        </button>
+      </div>
+    </div>
+    <div class="p-4">
+      <input type="text" id="searchInput" class="form-input" placeholder="Search by Name, Mobile, etc." onkeyup="filterUsers()" data-translate="Search by Name, Mobile, etc.">
+    </div>
+    <div id="users-table" class="p-4">
+      <!-- Users table will be dynamically populated here -->
+    </div>
+  </div>
+  <script src="dark-mode.js"></script>
+  <script src="translation.js"></script>
+  <script>
+    const admin = JSON.parse(localStorage.getItem('admin'));
+    if (!admin) {
+      window.location.href = 'admin-login.html';
+    }
+
+    let allUsers = JSON.parse(localStorage.getItem('users')) || []; // Assuming you have a 'users' item in local storage
+
+    function renderTable(users) {
+      const table = document.createElement('table');
+      table.classList.add('w-full', 'text-left', 'border-collapse');
+      table.innerHTML = `
+        <thead>
+          <tr>
+            <th class="py-2 px-4 border-b" data-translate="Name">Name</th>
+            <th class="py-2 px-4 border-b" data-translate="Mobile">Mobile</th>
+            <th class="py-2 px-4 border-b" data-translate="Role">Role</th>
+            <th class="py-2 px-4 border-b" data-translate="Actions">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      `;
+      const tbody = table.querySelector('tbody');
+      users.forEach(user => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td class="py-2 px-4 border-b">${user.fullName || user.name}</td>
+          <td class="py-2 px-4 border-b">${user.mobileNumber}</td>
+          <td class="py-2 px-4 border-b">${user.isAgent ? 'Agent' : 'Farmer'}</td>
+          <td class="py-2 px-4 border-b">
+            <button class="text-blue-500" data-translate="View">View</button>
+            <button class="text-red-500 ml-4" data-translate="Delete">Delete</button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+      document.getElementById('users-table').innerHTML = '';
+      document.getElementById('users-table').appendChild(table);
+    }
+
+    function filterUsers() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = allUsers.filter(u =>
+        (u.fullName || u.name).toLowerCase().includes(searchTerm) ||
+        u.mobileNumber.includes(searchTerm)
+      );
+      renderTable(filtered);
+    }
+
+    // This is a placeholder. In a real app, you'd fetch users from the database.
+    // For now, we'll just use the bookings to find some users.
+    const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+    bookings.forEach(b => {
+      if (b.userId && !allUsers.find(u => u.mobileNumber === b.userId)) {
+        allUsers.push({ mobileNumber: b.userId, name: b.farmerName || 'Unknown', isAgent: false });
+      }
+      if (b.agentId && !allUsers.find(u => u.mobileNumber === b.agentId)) {
+        allUsers.push({ mobileNumber: b.agentId, name: 'Unknown Agent', isAgent: true });
+      }
+    });
+    localStorage.setItem('users', JSON.stringify(allUsers));
+
+
+    renderTable(allUsers);
+  </script>
+</body>
+</html>

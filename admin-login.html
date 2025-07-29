@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VayuDrone - Admin Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+  <link rel="stylesheet" href="dark-mode.css">
+  <link rel="stylesheet" href="animations.css">
+  <link rel="stylesheet" href="responsive.css">
+</head>
+<body class="fade-in">
+  <div class="main-content container text-center">
+    <h1 class="text-3xl font-bold mt-8" data-translate="VayuDrone">VayuDrone</h1>
+    <p class="mt-2 text-lg" data-translate="Admin Login">Admin Login</p>
+    <div class="mt-8">
+      <input type="text" id="username" class="form-input" placeholder="Username" data-translate="Username">
+      <input type="password" id="password" class="form-input mt-4" placeholder="Password" data-translate="Password">
+      <button class="w-full mt-4 bg-[#9fd391] text-white py-3 rounded-full text-lg" onclick="login()" data-translate="Login">Login</button>
+    </div>
+  </div>
+  <script src="dark-mode.js"></script>
+  <script src="translation.js"></script>
+  <script>
+    function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      // In a real application, you would verify the admin's credentials against a database.
+      if (username === 'admin' && password === 'password') {
+        localStorage.setItem('admin', JSON.stringify({ username: 'admin' }));
+        window.location.href = 'admin-dashboard.html';
+      } else {
+        alert('Invalid username or password.');
+      }
+    }
+  </script>
+</body>
+</html>

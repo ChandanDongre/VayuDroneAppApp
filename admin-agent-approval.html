@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VayuDrone - Agent Approval</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+  <link rel="stylesheet" href="dark-mode.css">
+  <link rel="stylesheet" href="animations.css">
+  <link rel="stylesheet" href="responsive.css">
+</head>
+<body class="fade-in">
+  <div class="main-content container">
+    <div class="flex items-center bg-[#f9fcf8] p-4 pb-2 justify-between">
+      <h2 data-translate="Agent Approval" class="text-[#111b0e] text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Agent Approval</h2>
+      <div class="flex w-12 items-center justify-end">
+        <button
+          class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 bg-transparent text-[#111b0e] gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0"
+          onclick="window.location.href='admin-dashboard.html'"
+        >
+          <span data-translate="Back">Back</span>
+        </button>
+      </div>
+    </div>
+    <div id="agents-table" class="p-4">
+      <!-- Agents table will be dynamically populated here -->
+    </div>
+  </div>
+  <script src="dark-mode.js"></script>
+  <script src="translation.js"></script>
+  <script>
+    const admin = JSON.parse(localStorage.getItem('admin'));
+    if (!admin) {
+      window.location.href = 'admin-login.html';
+    }
+
+    let allUsers = JSON.parse(localStorage.getItem('users')) || [];
+
+    function renderTable(agents) {
+      const table = document.createElement('table');
+      table.classList.add('w-full', 'text-left', 'border-collapse');
+      table.innerHTML = `
+        <thead>
+          <tr>
+            <th class="py-2 px-4 border-b" data-translate="Name">Name</th>
+            <th class="py-2 px-4 border-b" data-translate="Shop Name">Shop Name</th>
+            <th class="py-2 px-4 border-b" data-translate="Mobile">Mobile</th>
+            <th class="py-2 px-4 border-b" data-translate="Actions">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      `;
+      const tbody = table.querySelector('tbody');
+      agents.forEach(agent => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td class="py-2 px-4 border-b">${agent.fullName}</td>
+          <td class="py-2 px-4 border-b">${agent.shopName}</td>
+          <td class="py-2 px-4 border-b">${agent.mobileNumber}</td>
+          <td class="py-2 px-4 border-b">
+            <button class="text-green-500" onclick="approveAgent('${agent.mobileNumber}')" data-translate="Approve">Approve</button>
+            <button class="text-red-500 ml-4" onclick="rejectAgent('${agent.mobileNumber}')" data-translate="Reject">Reject</button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+      document.getElementById('agents-table').innerHTML = '';
+      document.getElementById('agents-table').appendChild(table);
+    }
+
+    function approveAgent(mobileNumber) {
+      const userIndex = allUsers.findIndex(u => u.mobileNumber === mobileNumber);
+      if (userIndex !== -1) {
+        allUsers[userIndex].approved = true;
+        localStorage.setItem('users', JSON.stringify(allUsers));
+        renderTable(getPendingAgents());
+        alert('Agent approved.');
+      }
+    }
+
+    function rejectAgent(mobileNumber) {
+        allUsers = allUsers.filter(u => u.mobileNumber !== mobileNumber);
+        localStorage.setItem('users', JSON.stringify(allUsers));
+        renderTable(getPendingAgents());
+        alert('Agent rejected.');
+    }
+
+    function getPendingAgents(){
+        return allUsers.filter(u => u.isAgent && !u.approved);
+    }
+
+    renderTable(getPendingAgents());
+  </script>
+</body>
+</html>

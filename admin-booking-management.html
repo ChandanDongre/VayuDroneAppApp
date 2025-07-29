@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VayuDrone - Booking Management</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+  <link rel="stylesheet" href="dark-mode.css">
+  <link rel="stylesheet" href="animations.css">
+  <link rel="stylesheet" href="responsive.css">
+</head>
+<body class="fade-in">
+  <div class="main-content container">
+    <div class="flex items-center bg-[#f9fcf8] p-4 pb-2 justify-between">
+      <h2 data-translate="Booking Management" class="text-[#111b0e] text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Booking Management</h2>
+      <div class="flex w-12 items-center justify-end">
+        <button
+          class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 bg-transparent text-[#111b0e] gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0"
+          onclick="window.location.href='admin-dashboard.html'"
+        >
+          <span data-translate="Back">Back</span>
+        </button>
+      </div>
+    </div>
+    <div class="p-4">
+      <input type="text" id="searchInput" class="form-input" placeholder="Search by Farmer Name, Status, etc." onkeyup="filterBookings()" data-translate="Search by Farmer Name, Status, etc.">
+    </div>
+    <div id="bookings-table" class="p-4">
+      <!-- Bookings table will be dynamically populated here -->
+    </div>
+  </div>
+  <script src="dark-mode.js"></script>
+  <script src="translation.js"></script>
+    <script src="notifications.js"></script>
+  <script>
+    const admin = JSON.parse(localStorage.getItem('admin'));
+    if (!admin) {
+      window.location.href = 'admin-login.html';
+    }
+
+    let allBookings = JSON.parse(localStorage.getItem('bookings')) || [];
+    const operators = [ // Dummy operators for assignment
+      { name: 'Ramesh Kumar', mobileNumber: '9876543210' },
+      { name: 'Suresh Singh', mobileNumber: '9876543211' }
+    ];
+
+    function renderTable(bookings) {
+      const table = document.createElement('table');
+      table.classList.add('w-full', 'text-left', 'border-collapse');
+      table.innerHTML = `
+        <thead>
+          <tr>
+            <th class="py-2 px-4 border-b" data-translate="Booking ID">Booking ID</th>
+            <th class="py-2 px-4 border-b" data-translate="Farmer Name">Farmer Name</th>
+            <th class="py-2 px-4 border-b" data-translate="Date">Date</th>
+            <th class="py-2 px-4 border-b" data-translate="Area">Area</th>
+            <th class="py-2 px-4 border-b" data-translate="Cost">Cost</th>
+            <th class="py-2 px-4 border-b" data-translate="Status">Status</th>
+            <th class="py-2 px-4 border-b" data-translate="Assign Operator">Assign Operator</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      `;
+      const tbody = table.querySelector('tbody');
+      bookings.forEach(booking => {
+        const row = document.createElement('tr');
+        const operatorSelect = booking.status === 'Pending' ?
+          `<select class="form-select" onchange="assignOperator('${booking.id}', this.value)">
+            <option value="" data-translate="Select Operator">Select Operator</option>
+            ${operators.map(op => `<option value="${op.mobileNumber}">${op.name}</option>`).join('')}
+           </select>` : (booking.operator ? booking.operator.name : 'N/A');
+
+        row.innerHTML = `
+          <td class="py-2 px-4 border-b">${booking.id || (Math.random() * 100000).toFixed(0)}</td>
+          <td class="py-2 px-4 border-b">${booking.farmerName || 'Self'}</td>
+          <td class="py-2 px-4 border-b">${new Date(booking.date).toLocaleDateString()}</td>
+          <td class="py-2 px-4 border-b">${booking.area.toFixed(2)} acres</td>
+          <td class="py-2 px-4 border-b">₹${booking.cost.toFixed(2)}</td>
+          <td class="py-2 px-4 border-b">${booking.status}</td>
+          <td class="py-2 px-4 border-b">${operatorSelect}</td>
+        `;
+        tbody.appendChild(row);
+      });
+      document.getElementById('bookings-table').innerHTML = '';
+      document.getElementById('bookings-table').appendChild(table);
+    }
+
+    function filterBookings() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = allBookings.filter(b =>
+        (b.farmerName || 'Self').toLowerCase().includes(searchTerm) ||
+        b.status.toLowerCase().includes(searchTerm)
+      );
+      renderTable(filtered);
+    }
+
+    function assignOperator(bookingId, operatorMobile) {
+      const bookingIndex = allBookings.findIndex(b => b.id == bookingId);
+      const operator = operators.find(op => op.mobileNumber === operatorMobile);
+      if (bookingIndex !== -1 && operator) {
+        allBookings[bookingIndex].status = 'Confirmed';
+        allBookings[bookingIndex].operator = operator;
+        localStorage.setItem('bookings', JSON.stringify(allBookings));
+        renderTable(allBookings);
+        showNotification('Booking Confirmed!', {
+          body: `Your booking has been confirmed. Operator ${operator.name} has been assigned.`
+        });
+        alert(`Operator ${operator.name} assigned to booking.`);
+      }
+    }
+
+    renderTable(allBookings);
+  </script>
+</body>
+</html>

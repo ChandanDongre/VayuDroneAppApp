@@ -22,6 +22,7 @@
     <script src="dark-mode.js"></script>
     <script src="location.js"></script>
     <script src="translation.js"></script>
+    <script src="notifications.js"></script>
     <div
       class="relative flex size-full min-h-screen flex-col bg-white justify-between group/design-root overflow-x-hidden"
       style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'
@@ -72,13 +73,29 @@
             </div>
           </div>
         </div>
-        <div class="flex justify-center">
+        <div id="farmer-view" class="flex justify-center">
           <div class="flex flex-1 gap-3 max-w-[480px] flex-col items-stretch px-4 py-3">
             <button
               class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-[#b2e5b2] text-[#121612] text-base font-bold leading-normal tracking-[0.015em] w-full"
               onclick="window.location.href='book-drone-service-initial.html'"
             >
-              <span data-translate="Book Drone Service" class="truncate">Book Drone Service</span>
+              <span data-translate="Book Drone Spraying" class="truncate">Book Drone Spraying</span>
+            </button>
+            <button
+              class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-[#f1f4f1] text-[#121612] text-base font-bold leading-normal tracking-[0.015em] w-full"
+              onclick="window.location.href='my-bookings.html'"
+            >
+              <span data-translate="My Bookings" class="truncate">My Bookings</span>
+            </button>
+          </div>
+        </div>
+        <div id="agent-view" class="hidden justify-center">
+          <div class="flex flex-1 gap-3 max-w-[480px] flex-col items-stretch px-4 py-3">
+            <button
+              class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-[#b2e5b2] text-[#121612] text-base font-bold leading-normal tracking-[0.015em] w-full"
+              onclick="window.location.href='book-for-farmer.html'"
+            >
+              <span data-translate="Book for a Farmer" class="truncate">Book for a Farmer</span>
             </button>
             <button
               class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-[#f1f4f1] text-[#121612] text-base font-bold leading-normal tracking-[0.015em] w-full"
@@ -87,14 +104,21 @@
               <span data-translate="My Bookings" class="truncate">My Bookings</span>
             </button>
             <button
-              class="flex min-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-[#f1f4f1] text-[#121612] text-base font-bold leading-normal tracking-[0.015em] w-full"
-              onclick="window.location.href='drone-status.html'"
+              class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-[#f1f4f1] text-[#121612] text-base font-bold leading-normal tracking-[0.015em] w-full"
+              onclick="window.location.href='my-earnings.html'"
             >
-              <span data-translate="Drone Status" class="truncate">Drone Status</span>
+              <span data-translate="My Earnings" class="truncate">My Earnings</span>
             </button>
           </div>
         </div>
       </div>
+      <script>
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user && user.isAgent) {
+          document.getElementById('farmer-view').style.display = 'none';
+          document.getElementById('agent-view').style.display = 'flex';
+        }
+      </script>
       <div>
         <div class="flex gap-2 border-t border-[#f1f4f1] bg-white px-4 pb-3 pt-2">
           <a class="just flex flex-1 flex-col items-center justify-end gap-1 rounded-full text-[#121612]" href="home.html">
